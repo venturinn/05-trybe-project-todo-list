@@ -3,6 +3,7 @@ const textoTarefa = document.getElementById('texto-tarefa');
 const lista = document.getElementsByTagName('ol');
 const quadroCentral = document.getElementById('quadro-central');
 const listaLi = document.getElementsByTagName('li');
+const liClass = document.getElementsByClassName('completed');
 
 // Função para criar os itens da lista de tarefas
 
@@ -40,3 +41,18 @@ function liColor(event) {
 }
 
 document.addEventListener('click', liColor);
+
+// Função para colocar a classe "completed" em um item clicado duas vezes e riscar o item na lista
+
+function addClass(event) {
+  const liClicada = event.target;
+  if (liClicada.tagName === 'LI' && liClicada.className === 'completed') {
+    liClicada.className = '';
+    liClicada.style.textDecoration = 'none';
+  } else if (liClicada.tagName === 'LI') {
+    liClicada.className = 'completed';
+    liClicada.style.textDecoration = 'line-through solid rgb(0, 0, 0)';
+  }
+}
+
+document.addEventListener('dblclick', addClass);
