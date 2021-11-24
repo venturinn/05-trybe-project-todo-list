@@ -10,14 +10,17 @@ const buttonBar = document.getElementById('barra-botoes');
 
 function creat() {
   const text = document.createElement('li');
-
   text.innerText = textoTarefa.value;
-  text.style.height = '20px';
-  text.style.marginLeft = '15px';
-  text.style.lineHeight = '20px';
-  lista[0].appendChild(text);
-  textoTarefa.value = '';
-  quadroCentral.style.height = `${String(quadroCentral.offsetHeight + 20)}px`;
+  if (text.innerText !== '') {
+    text.style.height = '20px';
+    text.style.marginLeft = '15px';
+    text.style.lineHeight = '20px';
+    lista[0].appendChild(text);
+    textoTarefa.value = '';
+    quadroCentral.style.height = `${String(quadroCentral.offsetHeight + 20)}px`;
+  } else {
+    alert('Digite uma terefa');
+  }
 }
 
 criarTarefa.addEventListener('click', creat);
@@ -79,7 +82,7 @@ function addButtonClear() {
 
 addButtonClear();
 
-// Função para apagar a lista de li´s
+// Função para remover toda a lista de li´s
 
 function liClear() {
   for (;listaLi.length > 0;) {
@@ -90,3 +93,39 @@ function liClear() {
 
 const buttonClear = document.getElementById('apaga-tudo');
 buttonClear.addEventListener('click', liClear);
+
+// Função que adiciona o botão para apagar as li´s com a classe "completed"
+
+function addButtonClearCompleted() {
+  const buttonClear2 = document.createElement('button');
+
+  buttonClear2.innerText = 'Limpar Completos';
+  buttonClear2.id = 'remover-finalizados';
+  buttonClear2.style.paddingLeft = '20px';
+  buttonClear2.style.paddingRight = '20px';
+  buttonClear2.style.border = 'none';
+  buttonClear2.style.color = 'white';
+  buttonClear2.style.backgroundColor = 'blue';
+  buttonClear2.style.paddingTop = '7px';
+  buttonClear2.style.paddingBottom = '7px';
+  buttonClear2.style.borderRadius = '10px';
+  buttonClear2.style.marginLeft = '50px';
+
+  buttonBar.appendChild(buttonClear2);
+}
+
+addButtonClearCompleted();
+
+// Função para remover apenas as li´s com a classe "completed"
+
+function liClearCompleted() {
+  for (let i = 0; i < listaLi.length; i += 1) {
+    if (listaLi[i].className === 'completed') {
+      lista[0].removeChild(listaLi[i]);
+      quadroCentral.style.height = `${String(quadroCentral.offsetHeight - 20)}px`;
+    }
+  }
+}
+
+const buttonClear2 = document.getElementById('remover-finalizados');
+buttonClear2.addEventListener('click', liClearCompleted);
