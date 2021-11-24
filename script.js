@@ -4,6 +4,7 @@ const lista = document.getElementsByTagName('ol');
 const quadroCentral = document.getElementById('quadro-central');
 const listaLi = document.getElementsByTagName('li');
 const liClass = document.getElementsByClassName('completed');
+const buttonBar = document.getElementById('barra-botoes');
 
 // Função para criar os itens da lista de tarefas
 
@@ -56,3 +57,36 @@ function addClass(event) {
 }
 
 document.addEventListener('dblclick', addClass);
+
+// Função que adiciona o botão para apagar todas as li´s
+
+function addButtonClear() {
+  const buttonClear = document.createElement('button');
+
+  buttonClear.innerText = 'Limpar Lista';
+  buttonClear.id = 'apaga-tudo';
+  buttonClear.style.paddingLeft = '20px';
+  buttonClear.style.paddingRight = '20px';
+  buttonClear.style.border = 'none';
+  buttonClear.style.color = 'white';
+  buttonClear.style.backgroundColor = 'red';
+  buttonClear.style.paddingTop = '7px';
+  buttonClear.style.paddingBottom = '7px';
+  buttonClear.style.borderRadius = '10px';
+
+  buttonBar.appendChild(buttonClear);
+}
+
+addButtonClear();
+
+// Função para apagar a lista de li´s
+
+function liClear() {
+  for (;listaLi.length > 0;) {
+    lista[0].removeChild(listaLi[0]);
+    quadroCentral.style.height = `${String(quadroCentral.offsetHeight - 20)}px`;
+  }
+}
+
+const buttonClear = document.getElementById('apaga-tudo');
+buttonClear.addEventListener('click', liClear);
