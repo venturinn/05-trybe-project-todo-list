@@ -89,7 +89,7 @@ function liClearCompleted() {
     if (listaLi[i].className === 'completed') {
       lista[0].removeChild(listaLi[i]);
       quadroCentral.style.height = `${String(quadroCentral.offsetHeight - 20)}px`;
-      i = 0;
+      liClearCompleted();
     }
   }
 }
