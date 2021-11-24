@@ -5,7 +5,7 @@ const quadroCentral = document.getElementById('quadro-central');
 const listaLi = document.getElementsByTagName('li');
 const liClass = document.getElementsByClassName('completed');
 const buttonBar = document.getElementById('barra-botoes');
-let liClicada;
+let liMarcada;
 
 // Função para criar os itens da lista de tarefas
 
@@ -42,6 +42,7 @@ function liColor(event) {
   if (liClicada.tagName === 'LI') {
     clearLiColor();
     liClicada.style.backgroundColor = 'rgb(128, 128, 128)';
+    liMarcada = event.target;
   }
 }
 
@@ -55,7 +56,7 @@ function addClass(event) {
     liClicada.className = '';
     liClicada.style.textDecoration = 'none';
   } else if (liClicada.tagName === 'LI') {
-    liClicada.className = 'completed';
+    liClicada.classList.add('completed');
     liClicada.style.textDecoration = 'line-through solid rgb(0, 0, 0)';
   }
 }
@@ -272,3 +273,37 @@ function deleteLi() {
 
 const buttonDelete = document.getElementById('remover-selecionado');
 buttonDelete.addEventListener('click', deleteLi);
+
+// Função para ordenar a Li selecionada para cima
+
+function up() {
+  if (liMarcada.previousElementSibling !== null) {
+    const conteudoClicado = liMarcada.innerText;
+    const conteudoSuperior = liMarcada.previousElementSibling.innerText;
+    liMarcada.innerText = conteudoSuperior;
+    liMarcada.previousElementSibling.innerText = conteudoClicado;
+    liMarcada.style.backgroundColor = 'white';
+    liMarcada = liMarcada.previousElementSibling;
+    liMarcada.style.backgroundColor = 'rgb(128, 128, 128)';
+  }
+}
+
+const buttonUp = document.getElementById('mover-cima');
+buttonUp.addEventListener('click', up);
+
+// Função para ordenar a Li selecionada para cima
+
+function down() {
+  if (liMarcada.nextElementSibling !== null) {
+    const conteudoClicado = liMarcada.innerText;
+    const conteudoInferior = liMarcada.nextElementSibling.innerText;
+    liMarcada.innerText = conteudoInferior;
+    liMarcada.nextElementSibling.innerText = conteudoClicado;
+    liMarcada.style.backgroundColor = 'white';
+    liMarcada = liMarcada.nextElementSibling;
+    liMarcada.style.backgroundColor = 'rgb(128, 128, 128)';
+  }
+}
+
+const buttondown = document.getElementById('mover-baixo');
+buttondown.addEventListener('click', down);
