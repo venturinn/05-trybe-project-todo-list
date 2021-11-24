@@ -277,7 +277,7 @@ buttonDelete.addEventListener('click', deleteLi);
 // Função para ordenar a Li selecionada para cima
 
 function up() {
-  if (liMarcada.previousElementSibling !== null) {
+  if (liMarcada !== undefined && liMarcada.previousElementSibling !== null) {
     const conteudoClicado = liMarcada.innerText;
     const conteudoSuperior = liMarcada.previousElementSibling.innerText;
     liMarcada.innerText = conteudoSuperior;
@@ -294,7 +294,7 @@ buttonUp.addEventListener('click', up);
 // Função para ordenar a Li selecionada para cima
 
 function down() {
-  if (liMarcada.nextElementSibling !== null) {
+  if (liMarcada !== undefined && liMarcada.nextElementSibling !== null) {
     const conteudoClicado = liMarcada.innerText;
     const conteudoInferior = liMarcada.nextElementSibling.innerText;
     liMarcada.innerText = conteudoInferior;
