@@ -5,6 +5,7 @@ const quadroCentral = document.getElementById('quadro-central');
 const listaLi = document.getElementsByTagName('li');
 const liClass = document.getElementsByClassName('completed');
 const buttonBar = document.getElementById('barra-botoes');
+let liClicada;
 
 // Função para criar os itens da lista de tarefas
 
@@ -36,7 +37,7 @@ function clearLiColor() {
 // Função para colocar cor ao item da lista clicado
 
 function liColor(event) {
-  const liClicada = event.target;
+  liClicada = event.target;
 
   if (liClicada.tagName === 'LI') {
     clearLiColor();
@@ -156,6 +157,7 @@ addButtonSave();
 // Função para salvar as li´s no Local Storange
 
 function liSave() {
+  localStorage.clear();
   for (let i = 0; i < listaLi.length; i += 1) {
     const newItem = { conteudo: '', classe: '' };
 
@@ -191,3 +193,82 @@ function reloadLi() {
 }
 
 reloadLi();
+
+// Função que adiciona o botão para apagar Li selecionada
+
+function addButtonX() {
+  const buttonX = document.createElement('button');
+
+  buttonX.innerText = 'X';
+  buttonX.id = 'remover-selecionado';
+  buttonX.style.paddingLeft = '20px';
+  buttonX.style.paddingRight = '20px';
+  buttonX.style.border = 'none';
+  buttonX.style.color = 'white';
+  buttonX.style.backgroundColor = 'red';
+  buttonX.style.paddingTop = '7px';
+  buttonX.style.paddingBottom = '7px';
+  buttonX.style.borderRadius = '10px';
+  buttonX.style.marginLeft = '50px';
+
+  buttonBar.appendChild(buttonX);
+}
+
+addButtonX();
+
+// Função que adiciona o botão para mover para baixo a Li selecionada
+
+function addButtonDown() {
+  const buttonD = document.createElement('button');
+
+  buttonD.innerText = '⬇';
+  buttonD.id = 'mover-baixo';
+  buttonD.style.paddingLeft = '20px';
+  buttonD.style.paddingRight = '20px';
+  buttonD.style.border = 'none';
+  buttonD.style.color = 'white';
+  buttonD.style.backgroundColor = 'orange';
+  buttonD.style.paddingTop = '7px';
+  buttonD.style.paddingBottom = '7px';
+  buttonD.style.borderRadius = '10px';
+  buttonD.style.marginLeft = '10px';
+
+  buttonBar.appendChild(buttonD);
+}
+
+addButtonDown();
+
+// Função que adiciona o botão para mover para cima a Li selecionada
+
+function addButtonUpp() {
+  const buttonU = document.createElement('button');
+
+  buttonU.innerText = '⬆';
+  buttonU.id = 'mover-cima';
+  buttonU.style.paddingLeft = '20px';
+  buttonU.style.paddingRight = '20px';
+  buttonU.style.border = 'none';
+  buttonU.style.color = 'white';
+  buttonU.style.backgroundColor = 'orange';
+  buttonU.style.paddingTop = '7px';
+  buttonU.style.paddingBottom = '7px';
+  buttonU.style.borderRadius = '10px';
+  buttonU.style.marginLeft = '10px';
+
+  buttonBar.appendChild(buttonU);
+}
+
+addButtonUpp();
+
+// Função para apagar a Li selecionada
+
+function deleteLi() {
+  for (let i = 0; i < listaLi.length; i += 1) {
+    if (listaLi[i].style.backgroundColor !== 'white') {
+      lista[0].removeChild(listaLi[i]);
+    }
+  }
+}
+
+const buttonDelete = document.getElementById('remover-selecionado');
+buttonDelete.addEventListener('click', deleteLi);
