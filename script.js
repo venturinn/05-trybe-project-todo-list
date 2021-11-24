@@ -123,9 +123,71 @@ function liClearCompleted() {
     if (listaLi[i].className === 'completed') {
       lista[0].removeChild(listaLi[i]);
       quadroCentral.style.height = `${String(quadroCentral.offsetHeight - 20)}px`;
+      i = 0;
     }
   }
 }
 
 const buttonClear2 = document.getElementById('remover-finalizados');
 buttonClear2.addEventListener('click', liClearCompleted);
+
+// Função que adiciona o botão para salvar as li´s no Local Storange
+
+function addButtonSave() {
+  const buttonSave = document.createElement('button');
+
+  buttonSave.innerText = 'Salvar Lista';
+  buttonSave.id = 'salvar-tarefas';
+  buttonSave.style.paddingLeft = '20px';
+  buttonSave.style.paddingRight = '20px';
+  buttonSave.style.border = 'none';
+  buttonSave.style.color = 'white';
+  buttonSave.style.backgroundColor = 'green';
+  buttonSave.style.paddingTop = '7px';
+  buttonSave.style.paddingBottom = '7px';
+  buttonSave.style.borderRadius = '10px';
+  buttonSave.style.marginLeft = '50px';
+
+  buttonBar.appendChild(buttonSave);
+}
+
+addButtonSave();
+
+// Função para salvar as li´s no Local Storange
+
+function liSave() {
+  for (let i = 0; i < listaLi.length; i += 1) {
+    const newItem = { conteudo: '', classe: '' };
+
+    newItem.conteudo = listaLi[i].innerText;
+    newItem.classe = listaLi[i].className;
+
+    localStorage.setItem(i, JSON.stringify(newItem));
+  }
+}
+
+const buttonSave = document.getElementById('salvar-tarefas');
+buttonSave.addEventListener('click', liSave);
+
+// Função para recarregar as li´s do Local Storange quando a página for recarregada
+
+function reloadLi() {
+  for (let i = 0; i < localStorage.length; i += 1) {
+    const memory = JSON.parse(localStorage.getItem(i));
+
+    const text = document.createElement('li');
+    text.className = memory.classe;
+    text.innerText = memory.conteudo;
+    text.style.height = '20px';
+    text.style.marginLeft = '15px';
+    text.style.lineHeight = '20px';
+    lista[0].appendChild(text);
+    quadroCentral.style.height = `${String(quadroCentral.offsetHeight + 20)}px`;
+
+    if (text.className === 'completed') {
+      text.style.textDecoration = 'line-through solid rgb(0, 0, 0)';
+    }
+  }
+}
+
+reloadLi();
